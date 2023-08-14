@@ -18,4 +18,5 @@ public interface StudentRepository extends MongoRepository<Student, String> {
     // findALLByEmail - szuka po jednym emailu
     // findALLByEmailIn - z końcówką "In" szuka po liście emaili
     List<Student> findALLByEmailIn(List<String> emails);
+    Optional<Student> findByEmail(String email);
 }

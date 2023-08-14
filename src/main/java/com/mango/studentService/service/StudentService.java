@@ -3,6 +3,7 @@ package com.mango.studentService.service;
 import com.mango.studentService.model.Status;
 import com.mango.studentService.model.Student;
 
+import java.security.Principal;
 import java.util.List;
 
 public interface StudentService {
@@ -12,6 +13,7 @@ public interface StudentService {
     Student addStudent(Student student);
 
     Student getStudent(String id);
+    Student getStudent(Principal user);
 
     void deleteStudent(String id);
 

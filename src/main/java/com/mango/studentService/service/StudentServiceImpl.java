@@ -8,6 +8,7 @@ import com.mango.studentService.repo.StudentRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
+import java.security.Principal;
 import java.util.List;
 
 @Service
@@ -37,6 +38,18 @@ public class StudentServiceImpl implements StudentService {
     public Student getStudent(String id) {
         Student student = studentRepository.findById(id)
                 .orElseThrow(() -> new StudentException(StudentError.STUDENT_NOT_FOUND));
+
+            if (!Status.ACTIVE.equals(student.getStatus())) {
+                throw new StudentException(StudentError.STUDENT_IS_NOT_ACTIVE);
+            }
+        return student;
+    }
+
+    @Override
+    public Student getStudent(Principal user) {
+        Student student = studentRepository.findByEmail(user.getName())
+                .orElseThrow(() -> new StudentException(StudentError.STUDENT_NOT_FOUND));
+
         if (!Status.ACTIVE.equals(student.getStatus())) {
             throw new StudentException(StudentError.STUDENT_IS_NOT_ACTIVE);
         }
